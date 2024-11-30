@@ -1,0 +1,6 @@
+.git
+.idea
+.env
+docker-compose.yml
+docker/postgres/*
+!docker/postgres/.gitkeep

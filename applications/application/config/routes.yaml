@@ -1,0 +1,4 @@
+# Подключение маршрутов ControllerBundle
+controller_bundle_routes:
+  resource: '../src/ControllerBundle/Resources/config/routes.yaml'
+  type: yaml

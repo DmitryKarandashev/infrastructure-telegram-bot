@@ -1,0 +1,4 @@
+controller_bundle:
+  resource: '../../Application/Controller/'
+  type: attribute
+  prefix: /
