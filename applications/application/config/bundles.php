@@ -6,4 +6,5 @@ return [
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     App\AccountBundle\AccountBundle::class => ['all' => true],
     App\ControllerBundle\ControllerBundle::class => ['all' => true],
+    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
 ];

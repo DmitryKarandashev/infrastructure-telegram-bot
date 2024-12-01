@@ -2,35 +2,46 @@
 
 namespace App\AccountBundle\Domain\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+
+#[ORM\Entity]
+#[ORM\Table(name: "accounts")]
 class Account
 {
+    #[ORM\Id]
+    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\GeneratedValue(strategy: "CUSTOM")]
+    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private string $id;
+
+    #[ORM\Column(type: "string", unique: true)]
     private string $login;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $name;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $patronymic;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $surname;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $email;
+
+    #[ORM\Column(type: "string")]
     private string $password;
+
+    #[ORM\Column(type: "json")]
     private array $roles;
 
     public function __construct(
-        string $id,
         string $login,
-        ?string $name,
-        ?string $patronymic,
-        ?string $surname,
-        ?string $email,
         string $password,
-        array $roles = []
     ) {
-        $this->id = $id;
         $this->login = $login;
-        $this->name = $name;
-        $this->patronymic = $patronymic;
-        $this->surname = $surname;
-        $this->email = $email;
         $this->password = $password;
-        $this->roles = $roles;
     }
 
     public function getId(): string
@@ -43,9 +54,19 @@ class Account
         return $this->login;
     }
 
+    public function setLogin(string $login): void
+    {
+        $this->login = $login;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 
     public function getPatronymic(): ?string
@@ -53,9 +74,19 @@ class Account
         return $this->patronymic;
     }
 
+    public function setPatronymic(?string $patronymic): void
+    {
+        $this->patronymic = $patronymic;
+    }
+
     public function getSurname(): ?string
     {
         return $this->surname;
+    }
+
+    public function setSurname(?string $surname): void
+    {
+        $this->surname = $surname;
     }
 
     public function getEmail(): ?string
@@ -63,9 +94,19 @@ class Account
         return $this->email;
     }
 
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
 
     public function getRoles(): array
@@ -78,20 +119,5 @@ class Account
         $this->roles = $roles;
     }
 
-    public function updatePersonalInfo(?string $name, ?string $patronymic, ?string $surname): void
-    {
-        $this->name = $name;
-        $this->patronymic = $patronymic;
-        $this->surname = $surname;
-    }
 
-    public function updateLogin(string $login): void
-    {
-        $this->login = $login;
-    }
-
-    public function changePassword(string $newPassword): void
-    {
-        $this->password = $newPassword;
-    }
 }

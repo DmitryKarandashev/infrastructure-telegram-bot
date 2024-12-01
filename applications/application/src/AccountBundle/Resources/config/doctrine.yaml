@@ -2,7 +2,7 @@ doctrine:
   orm:
     mappings:
       AccountBundle:
-        type: attribute
+        type: annotation
         is_bundle: false
         dir: '%kernel.project_dir%/src/AccountBundle/Domain/Model'
         prefix: 'App\AccountBundle\Domain\Model'

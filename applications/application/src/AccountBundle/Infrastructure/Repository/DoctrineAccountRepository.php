@@ -5,6 +5,7 @@ namespace App\AccountBundle\Infrastructure\Repository;
 use App\AccountBundle\Domain\Model\Account;
 use App\AccountBundle\Domain\Repository\AccountRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
 
 class DoctrineAccountRepository implements AccountRepositoryInterface
 {
@@ -33,13 +34,21 @@ class DoctrineAccountRepository implements AccountRepositoryInterface
 
     public function save(Account $user): void
     {
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        } catch (ORMException $e) {
+            throw new \RuntimeException('Failed to save the account.', 0, $e);
+        }
     }
 
     public function delete(Account $user): void
     {
-        $this->entityManager->remove($user);
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        } catch (ORMException $e) {
+            throw new \RuntimeException('Failed to delete the account.', 0, $e);
+        }
     }
 }

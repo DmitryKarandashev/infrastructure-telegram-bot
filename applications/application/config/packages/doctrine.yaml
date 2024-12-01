@@ -5,7 +5,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: false
+        auto_mapping: true
+        mappings:
+            AccountBundle:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/AccountBundle/Domain/Model'
+                prefix: 'App\AccountBundle\Domain\Model'
+                alias: AccountBundle
 
 when@test:
     doctrine:

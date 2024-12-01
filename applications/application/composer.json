@@ -4,18 +4,21 @@
   "minimum-stability": "stable",
   "prefer-stable": true,
   "require": {
-    "php": ">=8.2",
+    "php": ">=8.3",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "doctrine/annotations": "*",
     "doctrine/dbal": "*",
     "doctrine/doctrine-bundle": "*",
+    "doctrine/doctrine-migrations-bundle": "^3.3",
     "doctrine/orm": "*",
     "symfony/console": "7.1.*",
     "symfony/dotenv": "7.1.*",
     "symfony/flex": "^2",
     "symfony/framework-bundle": "7.1.*",
+    "symfony/password-hasher": "7.1.*",
     "symfony/runtime": "7.1.*",
+    "symfony/uid": "7.1.*",
     "symfony/yaml": "7.1.*"
   },
   "require-dev": {
