@@ -7,6 +7,7 @@ use App\AccountBundle\Domain\Repository\AccountRepositoryInterface;
 
 class AccountRegisterService
 {
+    protected array $messages = [];
 
 
     public function __construct(
@@ -21,6 +22,7 @@ class AccountRegisterService
         string $password,
     ): bool {
         if ($this->accountRepository->findByLogin($login)) {
+            $this->messages[] = "Login {$login} already exists.";
             return false;
         }
 
@@ -32,8 +34,14 @@ class AccountRegisterService
         try {
             $this->accountRepository->save($account);
         } catch (\Throwable $e) {
+            $this->messages[] = $e->getMessage();
             return false;
         }
         return true;
+    }
+
+    public function getMessages(): array
+    {
+        return $this->messages;
     }
 }
