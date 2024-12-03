@@ -7,8 +7,6 @@ use App\AccountBundle\Domain\Service\AccountRegisterService;
 
 class RegisterAccountHandler
 {
-
-
     public function __construct(readonly private AccountRegisterService $accountRegisterService)
     {
     }
@@ -26,6 +24,4 @@ class RegisterAccountHandler
             return new RegisterAccountResponse($success, $errors);
         }
     }
-
-
 }
