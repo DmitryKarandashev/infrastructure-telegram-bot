@@ -2,7 +2,7 @@
 
 namespace App\AccountBundle\Application\DTO;
 
-class RegisterAccountResponse
+class CreateAccountResponse
 {
     protected bool $success;
     protected array $errors;
