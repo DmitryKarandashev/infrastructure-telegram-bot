@@ -25,4 +25,12 @@ class CreateAccountResponse
     {
         return $this->errors;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'success' => $this->success,
+            'errors' => $this->errors,
+        ];
+    }
 }

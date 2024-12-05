@@ -16,4 +16,6 @@ interface AccountRepositoryInterface
     public function save(Account $user): void;
 
     public function delete(Account $user): void;
+
+    public function findAll(int $page = 1, int $offset = 0, int $limit = 100, array $params = []): array;
 }

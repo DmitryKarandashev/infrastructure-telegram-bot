@@ -51,4 +51,10 @@ class DoctrineAccountRepository implements AccountRepositoryInterface
             throw new \RuntimeException('Failed to delete the account.', 0, $e);
         }
     }
+
+    public function findAll(int $page = 1, int $offset = 0, int $limit = 100, array $params = []): array
+    {
+        $result = $this->entityManager->find(Account::class, $page, $offset, $limit);
+        dd($result);
+    }
 }

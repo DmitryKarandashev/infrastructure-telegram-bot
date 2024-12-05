@@ -1,0 +1,8 @@
+# src/AccountBundle/Resources/config/services.yaml
+services:
+  # Автозагрузка всех сервисов в указанном пространстве имен
+  App\AccountBundle\Infrastructure\Service\:
+    resource: '../../src/AccountBundle/Infrastructure/Service'
+    public: true # Если необходимо, укажите public, иначе сервис будет приватным
+    autowire: true
+    autoconfigure: true

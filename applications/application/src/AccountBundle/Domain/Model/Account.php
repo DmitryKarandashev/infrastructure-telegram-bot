@@ -4,10 +4,11 @@ namespace App\AccountBundle\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: "accounts")]
-class Account
+class Account implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: "uuid", unique: true)]
@@ -37,11 +38,9 @@ class Account
     private array $roles;
 
     public function __construct(
-        string $login,
-        string $password,
+        string $login
     ) {
         $this->login = $login;
-        $this->password = $password;
     }
 
     public function getId(): string

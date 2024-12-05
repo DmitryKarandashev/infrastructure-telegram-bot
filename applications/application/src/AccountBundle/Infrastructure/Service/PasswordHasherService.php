@@ -2,23 +2,28 @@
 
 namespace App\AccountBundle\Infrastructure\Service;
 
+use App\AccountBundle\Domain\Model\Account;
 use App\AccountBundle\Domain\Service\AccountPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class PasswordHasherService implements AccountPasswordHasherInterface
 {
-    public function __construct(readonly private PasswordHasherInterface $passwordHasher)
+    protected UserPasswordHasherInterface $hasher;
+
+    public function __construct(
+        UserPasswordHasherInterface $passwordHasher
+    )
     {
+        $this->hasher = $passwordHasher;
     }
 
-    public function hash(string $plainPassword): string
+    public function hash(Account $account, string $plainPassword): string
     {
-        return $this->passwordHasher->hash($plainPassword);
+        return $this->hasher->hashPassword($account, $plainPassword);
     }
 
-    public function verify(string $hashedPassword, string $plainPassword): bool
+    public function verify(Account $account, string $plainPassword): bool
     {
-        return $this->passwordHasher->verify($hashedPassword, $plainPassword);
+        return $this->hasher->isPasswordValid($account, $plainPassword);
     }
 }

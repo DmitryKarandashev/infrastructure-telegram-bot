@@ -7,4 +7,5 @@ return [
     App\AccountBundle\AccountBundle::class => ['all' => true],
     App\ControllerBundle\ControllerBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+    Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
 ];

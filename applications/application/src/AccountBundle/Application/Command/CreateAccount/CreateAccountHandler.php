@@ -7,20 +7,26 @@ use App\AccountBundle\Domain\Service\AccountRegisterService;
 
 class CreateAccountHandler
 {
-    public function __construct(readonly private AccountRegisterService $accountRegisterService)
+
+    private AccountRegisterService $service;
+
+    public function __construct(
+        AccountRegisterService $accountRegisterService
+    )
     {
+        $this->service = $accountRegisterService;
     }
 
     public function __invoke(CreateAccountCommand $command): CreateAccountResponse
     {
-        $success = $this->accountRegisterService->register(
+        $success = $this->service->register(
             $command->getLogin(),
             $command->getPassword()
         );
         if ($success) {
             return new CreateAccountResponse($success);
         } else {
-            $errors = $this->accountRegisterService->getMessages();
+            $errors = $this->service->getMessages();
             return new CreateAccountResponse($success, $errors);
         }
     }

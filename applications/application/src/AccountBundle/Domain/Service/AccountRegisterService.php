@@ -9,30 +9,37 @@ class AccountRegisterService
 {
     protected array $messages = [];
 
+    protected AccountPasswordHasherInterface $hasher;
+
+    protected AccountRepositoryInterface $repository;
+
 
     public function __construct(
-        private readonly AccountPasswordHasherInterface $passwordHasher,
-        private readonly AccountRepositoryInterface $accountRepository,
+        AccountPasswordHasherInterface $passwordHasher,
+        AccountRepositoryInterface $accountRepository,
     )
     {
+        $this->hasher = $passwordHasher;
+        $this->repository = $accountRepository;
     }
 
     public function register(
         string $login,
         string $password,
     ): bool {
-        if ($this->accountRepository->findByLogin($login)) {
+        if ($this->repository->findByLogin($login)) {
             $this->messages[] = "Login {$login} already exists.";
             return false;
         }
 
-        $account = new Account(
-            $login,
-            $this->passwordHasher->hash($password)
-        );
+        $account = new Account($login);
+
+        $password = $this->hasher->hash($account, $password);
+        $account->setPassword($password);
+        $account->setRoles(['ROLE_USER']);
 
         try {
-            $this->accountRepository->save($account);
+            $this->repository->save($account);
         } catch (\Throwable $e) {
             $this->messages[] = $e->getMessage();
             return false;
